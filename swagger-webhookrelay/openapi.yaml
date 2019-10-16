@@ -1,0 +1,904 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: Webhook Relay
+  description: >
+    # Introduction
+
+    Fast, secure tunnels to your internal networks. [Webhook
+    Relay](https://webhookrelay.com) allows you to expose your localhost 
+
+    or any other server in private network to the public internet without
+    configuring port forwarding 
+
+    or firewalls. 
+
+    This API is documented in **Swagger format**. Webhook Relay allows to
+    dynamically configure your tunnels and webhook forwarding.
+        
+    # Available authentication methods
+
+    Webhook Relay offers three forms of authentication:
+      - **Basic Auth** - only available for non-OAuth accounts. Use your username and password.
+      - **API Key** - available for all accounts, token pairs can be generated [here](https://my.webhookrelay.com/tokens)
+      - **JWT** - mainly used by the [admin dashboard](https://my.webhookrelay.com) with a 'Authorization Bearer: token' 
+  termsOfService: 'https://webhookrelay.com/tos/'
+  contact:
+    email: support@webhookrelay.com
+externalDocs:
+  description: Find out more in the official documentation.
+  url: 'https://webhookrelay.com/v1/guide/'
+tags:
+  - name: Tokens
+    description: >-
+      Token key & secret pairs are used to authenticate your API calls or for
+      agents to subscribe to webhook forwarding or open tunnels.
+  - name: Buckets
+    description: >-
+      Input and output grouping. Bucket allows to have multiple endpoints for
+      the same destination or multiple destinations for fan-out style webhook
+      forwarding.
+  - name: Outputs
+    description: >-
+      Outputs are destinations, where your webhooks will be forwarded. Public
+      destinations do not require agents to be running. Internal outputs will
+      not work without an agent.
+  - name: Inputs
+    description: >-
+      Inputs are your public endpoints. Each input serves as an inbox that you
+      can supply to your webhooks producer (ie: Github, Docker, IFTTT)
+  - name: Tunnels
+    description: >
+      Tunnels allow remote access to internal web services such as local
+      Wordpress, Jekyll or Hexo. Recommended `crypto` options are `flexible` or
+      `tls-pass-through`.  
+        
+x-tagGroups:
+  - name: Authentication
+    tags:
+      - Tokens
+  - name: Webhook Forwarding
+    tags:
+      - Buckets
+      - Outputs
+      - Inputs
+  - name: Tunneling
+    tags:
+      - Tunnels
+paths:
+  /v1/tunnels:
+    get:
+      tags:
+        - Tunnels
+      summary: List All Tunnels
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tunnel'
+              examples:
+                response:
+                  value:
+                    - id: b3237483-e96e-4f3a-905c-0d9603d66c1f
+                      created_at: 1534409264
+                      updated_at: 1534409264
+                      name: tunnel-x
+                      destination: 'http://localhost:4000'
+                      host: tunnelx.webrelay.io
+    post:
+      tags:
+        - Tunnels
+      description: >-
+        You may create your own tunnel using this action. It takes a JSON object
+        containing a tunnel request with a specified destination. Paid plans
+        have an option to specify either encryption, subdomain or full domain.
+      summary: Create a New Tunnel
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tunnel'
+              examples:
+                response:
+                  value:
+                    id: b3237483-e96e-4f3a-905c-0d9603d66c1f
+                    created_at: 1534409264
+                    updated_at: 1534409264
+                    name: tunnel-x
+                    destination: 'http://localhost:4000'
+                    host: tunnelx.webrelay.io
+            description:
+              examples:
+                response:
+                  value: Create a tunnel with a custom subdomain
+        '400':
+          description: Invalid tunnel request supplied
+      requestBody:
+        $ref: '#/components/requestBodies/TunnelCreateRequest'
+    summary: List and create tunnels
+  '/v1/tunnels/{tunnelID}/':
+    parameters:
+      - name: tunnelID
+        in: path
+        description: ID of tunnel to return
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Tunnels
+      summary: Get Tunnel Details
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tunnel'
+              examples:
+                response:
+                  value:
+                    created_at: 1534409264
+                    updated_at: 1534409264
+                    id: b3237483-e96e-4f3a-905c-0d9603d66c1f
+                    destination: 'http://localhost:8090'
+                    name: tunnel
+                    group: ''
+                    addr: ''
+                    host: tunnelx.webrelay.io
+                    mode: active
+                    protocol: http
+                    account_id: bd7e1dfc-54c8-408c-a885-7498bf1d8522
+                    description: ''
+                    features: null
+                    auth:
+                      created_at: 1534409264
+                      updated_at: 1534409264
+                      id: eb3fbc49-0713-48b1-8971-a7c4a9c64dfb
+                      type: none
+                    agent_id: ''
+                    ingress_rules: null
+                    crypto: 'off'
+        '404':
+          description: Tunnel not found
+    put:
+      tags:
+        - Tunnels
+      summary: Update Tunnel Details
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tunnel'
+              examples:
+                response:
+                  value:
+                    created_at: 1534409264
+                    updated_at: 1534409264
+                    id: b3237483-e96e-4f3a-905c-0d9603d66c1f
+                    destination: 'http://localhost:8090'
+                    name: tunnel
+                    group: ''
+                    addr: ''
+                    host: tunnelx.webrelay.io
+                    mode: active
+                    protocol: http
+                    account_id: bd7e1dfc-54c8-408c-a885-7498bf1d8522
+                    description: ''
+                    features: null
+                    auth:
+                      created_at: 1534409264
+                      updated_at: 1534409264
+                      id: eb3fbc49-0713-48b1-8971-a7c4a9c64dfb
+                      type: none
+                    agent_id: ''
+                    ingress_rules: null
+                    crypto: 'off'
+        '400':
+          description: Bad request (check response message)
+        '404':
+          description: Tunnel not found
+      requestBody:
+        $ref: '#/components/requestBodies/TunnelCreateRequest'
+    delete:
+      tags:
+        - Tunnels
+      summary: Delete Tunnel
+      responses:
+        '200':
+          description: Successful Response
+        '404':
+          description: Tunnel not found
+    summary: 'Get, update and delete tunnels'
+  /v1/tokens:
+    get:
+      tags:
+        - Tokens
+      summary: List All Authentication Tokens
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+              examples:
+                response:
+                  value:
+                    - created_at: 1535232797
+                      updated_at: 1540394529
+                      last_login: 3 days ago
+                      id: 0a8dd8b4-aaaa-rrrr-dddd-ccc860e3005a
+                      description: linux cli
+                      scopes:
+                        buckets: []
+                        tunnels: []
+                      active: true
+                      api_access: enabled
+    post:
+      tags:
+        - Tokens
+      summary: Create a New Authentication Token
+      responses:
+        '201':
+          description: Create a new token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenCreateResponse'
+              examples:
+                response:
+                  value:
+                    created_at: 1535365683
+                    updated_at: 1536161359
+                    id: cc58c9ea-5fa7-466e-91dc-5c08d0b1127c
+                    description: ''
+                    scopes:
+                      buckets: []
+                      tunnels:
+                        - foo
+                        - bar
+                        - faa
+                    active: true
+                    api_disabled: true
+        '400':
+          description: Bad Request
+      requestBody:
+        $ref: '#/components/requestBodies/TokenRequest'
+    summary: List and create tunnels
+  '/v1/tokens/{tokenID}/':
+    parameters:
+      - name: tokenID
+        in: path
+        description: ID of token
+        required: true
+        schema:
+          type: string
+    put:
+      tags:
+        - Tokens
+      summary: Update Token Details
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+              examples:
+                response:
+                  value:
+                    application/json: null
+                    created_at: 1535365683
+                    updated_at: 1536161359
+                    id: cc58c9ea-5fa7-466e-91dc-5c08d0b1127c
+                    description: ''
+                    scopes:
+                      buckets: []
+                      tunnels:
+                        - foo
+                        - bar
+                        - faa
+                    active: true
+                    api_disabled: true
+        '400':
+          description: Bad request (check response message)
+        '404':
+          description: Tunnel not found
+      requestBody:
+        $ref: '#/components/requestBodies/TokenRequest'
+    delete:
+      tags:
+        - Tokens
+      summary: Delete Token
+      responses:
+        '200':
+          description: Successful Response
+        '404':
+          description: Token not found
+    summary: Update and delete tokens
+  /v1/buckets:
+    get:
+      tags:
+        - Buckets
+      summary: List All Buckets
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bucket'
+            examples:
+              examples:
+                response:
+                  value:
+                    application/json:
+                      - created_at: 1496610194
+                        updated_at: 1532192772
+                        id: 339ed2e3-70cf-4a81-8db8-e95a9251155d
+                        name: webhook-demo
+                        description: 'auto-created input for http://localhost:8090/webhook'
+                        suspended: false
+                        account_id: bd7e1dfc-54c8-408c-a885-7498bf1d8522
+                        auth:
+                          created_at: -62135596800
+                          updated_at: -62135596800
+                          id: ''
+                          type: none
+                        inputs:
+                          - created_at: 1496610195
+                            updated_at: 1496610195
+                            id: 5e722a5e-f3d9-4eec-9e9f-79f1158e4b10
+                            name: 'ingress for http://localhost:8090/webhook'
+                            bucket_id: 339ed2e3-70cf-4a81-8db8-e95a9251155d
+                            description: >-
+                              auto-created input for
+                              http://localhost:8090/webhook
+                            created_by: ''
+                        outputs:
+                          - created_at: 1496610196
+                            updated_at: 1496610196
+                            id: 3ec1899c-7069-4f55-88c6-5d8f5da4fa30
+                            name: 'http://localhost:8090/webhook'
+                            bucket_id: 339ed2e3-70cf-4a81-8db8-e95a9251155d
+                            destination: 'http://localhost:8090/webhook'
+                            internal: true
+                            description: >-
+                              auto-created output for
+                              http://localhost:8090/webhook
+                            created_by: ''
+    post:
+      tags:
+        - Buckets
+      description: >-
+        You may create your own bucket using this action. It takes a JSON object
+        containing a bucket request. Once bucket is created, it gets  assigned a
+        default input to accept webhooks but you will still have to  create a
+        new output to give it a destination.
+      summary: Create a New Bucket
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bucket'
+        '400':
+          description: Invalid bucket request supplied
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BucketRequest'
+        required: true
+    summary: List and create buckets
+  '/v1/buckets/{bucketID}/':
+    parameters:
+      - name: bucketID
+        in: path
+        description: ID of a bucket to return
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Buckets
+      summary: Get Bucket Details
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bucket'
+              examples:
+                response:
+                  value:
+                    created_at: 1496610194
+                    updated_at: 1532192772
+                    id: 339ed2e3-70cf-4a81-8db8-e95a9251155d
+                    name: webhook-demo
+                    description: 'auto-created input for http://localhost:8090/webhook'
+                    suspended: false
+                    account_id: bd7e1dfc-54c8-408c-a885-7498bf1d8522
+                    auth:
+                      created_at: -62135596800
+                      updated_at: -62135596800
+                      id: ''
+                      type: none
+                    inputs:
+                      - created_at: 1496610195
+                        updated_at: 1496610195
+                        id: 5e722a5e-f3d9-4eec-9e9f-79f1158e4b10
+                        name: 'ingress for http://localhost:8090/webhook'
+                        bucket_id: 339ed2e3-70cf-4a81-8db8-e95a9251155d
+                        description: 'auto-created input for http://localhost:8090/webhook'
+                        created_by: ''
+                    outputs:
+                      - created_at: 1496610196
+                        updated_at: 1496610196
+                        id: 3ec1899c-7069-4f55-88c6-5d8f5da4fa30
+                        name: 'http://localhost:8090/webhook'
+                        bucket_id: 339ed2e3-70cf-4a81-8db8-e95a9251155d
+                        destination: 'http://localhost:8090/webhook'
+                        internal: true
+                        description: 'auto-created output for http://localhost:8090/webhook'
+                        created_by: ''
+        '404':
+          description: Bucket not found
+    delete:
+      tags:
+        - Buckets
+      summary: Delete Bucket
+      responses:
+        '200':
+          description: Successful Response
+        '404':
+          description: Bucket not found
+    summary: Get and delete buckets
+  '/v1/buckets/{bucketID}/inputs':
+    parameters:
+      - name: bucketID
+        in: path
+        description: ID of a bucket to create input in
+        required: true
+        schema:
+          type: string
+    post:
+      tags:
+        - Inputs
+      description: Create one or more inputs for the bucket to get unique public endpoints.
+      summary: Create a New Input
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Input'
+        '400':
+          description: Invalid input request supplied
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputRequest'
+        required: true
+    summary: Manage bucket inputs
+  '/v1/buckets/{bucketID}/inputs/{inputID}':
+    parameters:
+      - name: bucketID
+        in: path
+        description: ID of a bucket to create input in
+        required: true
+        schema:
+          type: string
+      - name: inputID
+        in: path
+        description: ID of an input to delete
+        required: true
+        schema:
+          type: string
+    delete:
+      tags:
+        - Inputs
+      description: >-
+        Delete input. Once input is deleted, you will not be able to recreate a
+        new input with the same ID.
+      summary: Delete Input
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Input or Bucket not found
+    summary: Manage bucket inputs
+  '/v1/buckets/{bucketID}/outputs':
+    parameters:
+      - name: bucketID
+        in: path
+        description: ID of a bucket to create output in
+        required: true
+        schema:
+          type: string
+    post:
+      tags:
+        - Outputs
+      description: >-
+        Create one or more outputs for the bucket to start forwarding webhooks
+        to those destinations.
+      summary: Create a New Output
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Output'
+        '400':
+          description: Invalid output request supplied
+      requestBody:
+        $ref: '#/components/requestBodies/OutputRequest'
+    summary: Manage bucket outputs
+  '/v1/buckets/{bucketID}/outputs/{outputID}':
+    parameters:
+      - name: bucketID
+        in: path
+        description: ID of a bucket to create input in
+        required: true
+        schema:
+          type: string
+      - name: outputID
+        in: path
+        description: ID of an output to manage
+        required: true
+        schema:
+          type: string
+    put:
+      tags:
+        - Outputs
+      description: Update output destination or make it public/internal.
+      summary: Update Output
+      responses:
+        '200':
+          description: Output updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Output'
+        '400':
+          description: Invalid output request supplied
+      requestBody:
+        $ref: '#/components/requestBodies/OutputRequest'
+    delete:
+      tags:
+        - Outputs
+      summary: Delete Output
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Output or Bucket not found
+    summary: Manage bucket outputs
+servers:
+  - url: 'https://my.webhookrelay.com/'
+components:
+  requestBodies:
+    OutputRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OutputRequest'
+      required: true
+    TunnelCreateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TunnelCreateRequest'
+      required: true
+    TokenRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TokenRequest'
+      required: true
+  schemas:
+    Tunnel:
+      title: Tunnel
+      type: object
+      properties:
+        id:
+          type: string
+        created_at:
+          type: integer
+        updated_at:
+          type: integer
+        destination:
+          type: string
+        name:
+          type: string
+        group:
+          type: string
+        host:
+          type: string
+        protocol:
+          type: string
+        description:
+          type: string
+        auth:
+          type: object
+          $ref: '#/components/schemas/TunnelAuth'
+        crypto:
+          type: string
+      example:
+        created_at: 1534409264
+        updated_at: 1534409264
+        id: b3237483-e96e-4f3a-905c-0d9603d66c1f
+        destination: 'http://localhost:8090'
+        name: tunnel
+        group: ''
+        addr: ''
+        host: tunnelx.webrelay.io
+        mode: active
+        protocol: http
+        account_id: bd7e1dfc-54c8-408c-a885-7498bf1d8522
+        description: ''
+        features: null
+        auth:
+          created_at: 1534409264
+          updated_at: 1534409264
+          id: eb3fbc49-0713-48b1-8971-a7c4a9c64dfb
+          type: none
+        agent_id: ''
+        ingress_rules: null
+        crypto: 'off'
+    TunnelAuth:
+      title: Tunnel Authentication
+      type: object
+      properties:
+        id:
+          type: string
+        created_at:
+          type: integer
+        updated_at:
+          type: integer
+        type:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        token:
+          type: string
+    TunnelCreateRequest:
+      title: Tunnel Create Request
+      type: object
+      properties:
+        name:
+          type: string
+        group:
+          type: string
+        destination:
+          type: string
+        subdomain:
+          type: string
+        host:
+          type: string
+        crypto:
+          type: string
+        auth:
+          type: object
+          $ref: '#/components/schemas/TunnelAuth'
+        description:
+          type: string
+      required:
+        - destination
+      example:
+        name: tunnel-x
+        subdomain: tunnelx
+        destination: 'http://localhost:4000'
+    TunnelUpdateRequest:
+      title: Tunnel Update Request
+      type: object
+      properties:
+        name:
+          type: string
+        destination:
+          type: string
+        crypto:
+          type: string
+        auth:
+          type: object
+          $ref: '#/components/schemas/TunnelAuth'
+        description:
+          type: string
+      example:
+        name: tunnel-x
+        subdomain: tunnelx
+        destination: 'http://localhost:4000'
+    Token:
+      title: Token
+      type: object
+      properties:
+        id:
+          type: string
+        created_at:
+          type: integer
+        updated_at:
+          type: integer
+        last_login:
+          type: string
+        description:
+          type: string
+        scopes:
+          type: object
+          $ref: '#/components/schemas/TokenScopes'
+        api_access:
+          type: string
+    TokenRequest:
+      title: Token Request
+      type: object
+      properties:
+        description:
+          type: string
+        scopes:
+          type: object
+          $ref: '#/components/schemas/TokenScopes'
+        api_access:
+          type: string
+          description: >-
+            Can be either 'enabled' or 'disabled'. Tokens with disabled API
+            access can only be used to open tunnels or forward webhooks
+    TokenCreateResponse:
+      title: Token Create Response
+      type: object
+      properties:
+        id:
+          type: string
+          description: Token ID is used as a key
+        secret:
+          type: string
+          description: >-
+            This is the only time secret is revealed as it is already encrypted
+            by the system
+        created_at:
+          type: integer
+        updated_at:
+          type: integer
+        last_login:
+          type: string
+        description:
+          type: string
+        scopes:
+          type: object
+          $ref: '#/components/schemas/TokenScopes'
+        api_access:
+          type: string
+    TokenScopes:
+      title: TokenScopes
+      type: object
+      properties:
+        tunnels:
+          type: array
+          items:
+            type: string
+        buckets:
+          type: array
+          items:
+            type: string
+    BucketRequest:
+      title: Bucket create request
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    Bucket:
+      title: Bucket
+      type: object
+      properties:
+        id:
+          type: string
+        created_at:
+          type: integer
+        updated_at:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        auth:
+          type: object
+          $ref: '#/components/schemas/BucketAuth'
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Input'
+        outputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Output'
+    BucketAuth:
+      title: BucketAuth
+      type: object
+      properties:
+        id:
+          type: string
+        created_at:
+          type: integer
+        updated_at:
+          type: integer
+        type:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        token:
+          type: string
+    Input:
+      title: Input
+      type: object
+      properties:
+        id:
+          type: string
+        created_at:
+          type: integer
+        updated_at:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+    InputRequest:
+      title: Input create request
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    Output:
+      title: Output
+      type: object
+      properties:
+        id:
+          type: string
+        created_at:
+          type: integer
+        updated_at:
+          type: integer
+        name:
+          type: string
+        internal:
+          type: boolean
+        destination:
+          type: string
+        description:
+          type: string
+    OutputRequest:
+      title: Output create request
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        internal:
+          type: boolean
+        destination:
+          type: string
+          description: >-
+            Destination, where to forward the webhook, such as
+            'http://localhost:4000'
