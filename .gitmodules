@@ -1,0 +1,3 @@
+[submodule "swagger-webhookrelay"]
+	path = swagger-webhookrelay
+	url = https://github.com/webhookrelay/swagger-webhookrelay
