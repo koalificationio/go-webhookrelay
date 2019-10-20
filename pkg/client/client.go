@@ -10,8 +10,8 @@ import (
 
 // Config settings for client
 type Config struct {
-	ApiKey    string
-	ApiSecret string
+	APIKey    string
+	APISecret string
 
 	// Override default host
 	Host string
@@ -28,15 +28,17 @@ func New(cfg *Config) *apiclient.Openapi {
 	if cfg.Host == "" {
 		cfg.Host = apiclient.DefaultHost
 	}
+
 	if cfg.BasePath == "" {
 		cfg.BasePath = apiclient.DefaultBasePath
 	}
+
 	if cfg.Host == "" {
 		cfg.Schemes = apiclient.DefaultSchemes
 	}
 
 	runtime := httptransport.New(cfg.Host, cfg.BasePath, cfg.Schemes)
-	runtime.DefaultAuthentication = httptransport.BasicAuth(cfg.ApiKey, cfg.ApiSecret)
+	runtime.DefaultAuthentication = httptransport.BasicAuth(cfg.APIKey, cfg.APISecret)
 	client := apiclient.New(runtime, strfmt.Default)
 
 	return client

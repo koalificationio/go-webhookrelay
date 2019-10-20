@@ -1,0 +1,13 @@
+linters:
+  enable-all: true
+
+linters-settings:
+  maligned:
+    suggest-new: true
+
+issues:
+  exclude-rules:
+    - linters:
+        - golint
+      text: "blank import"
+

@@ -18,8 +18,8 @@ import (
 
 func main() {
 	cfg := client.Config{
-		ApiKey:    os.Getenv("RELAY_KEY"),
-		ApiSecret: os.Getenv("RELAY_SECRET"),
+		APIKey:    os.Getenv("RELAY_KEY"),
+		APISecret: os.Getenv("RELAY_SECRET"),
 	}
 
 	client := client.New(&cfg)

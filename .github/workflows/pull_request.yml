@@ -1,0 +1,24 @@
+name: pull_request_validation
+on:
+  pull_request:
+    branches:
+    - master
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.13
+        id: go
+      - name: Code checkout
+        uses: actions/checkout@v1
+      - name: Install golangci-lint
+        run: curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1.21.0
+      - name: Lint
+        run: ./bin/golangci-lint run
+      - name: Test
+        run: go test ./...
+
