@@ -12,8 +12,9 @@ require (
 	github.com/go-openapi/strfmt v0.19.3
 	github.com/go-openapi/swag v0.19.5
 	github.com/go-openapi/validate v0.19.4
-	github.com/google/go-cmp v0.3.1 // indirect
+	github.com/go-swagger/go-swagger v0.21.0
 	github.com/mailru/easyjson v0.7.0 // indirect
 	go.mongodb.org/mongo-driver v1.1.2 // indirect
-	golang.org/x/net v0.0.0-20191028085509-fe3aa8a45271 // indirect
+	golang.org/x/net v0.0.0-20191101175033-0deb6923b6d9 // indirect
+	golang.org/x/tools v0.0.0-20191101200257-8dbcdeb83d3f
 )
