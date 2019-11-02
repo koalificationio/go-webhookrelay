@@ -56,7 +56,7 @@ type GetV1TunnelsTunnelIDOK struct {
 }
 
 func (o *GetV1TunnelsTunnelIDOK) Error() string {
-	return fmt.Sprintf("[GET /v1/tunnels/{tunnelID}/][%d] getV1TunnelsTunnelIdOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /v1/tunnels/{tunnelID}][%d] getV1TunnelsTunnelIdOK  %+v", 200, o.Payload)
 }
 
 func (o *GetV1TunnelsTunnelIDOK) GetPayload() *models.Tunnel {
@@ -88,7 +88,7 @@ type GetV1TunnelsTunnelIDNotFound struct {
 }
 
 func (o *GetV1TunnelsTunnelIDNotFound) Error() string {
-	return fmt.Sprintf("[GET /v1/tunnels/{tunnelID}/][%d] getV1TunnelsTunnelIdNotFound ", 404)
+	return fmt.Sprintf("[GET /v1/tunnels/{tunnelID}][%d] getV1TunnelsTunnelIdNotFound ", 404)
 }
 
 func (o *GetV1TunnelsTunnelIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

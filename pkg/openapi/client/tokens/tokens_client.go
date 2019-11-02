@@ -38,7 +38,7 @@ func (a *Client) DeleteV1TokensTokenID(params *DeleteV1TokensTokenIDParams) (*De
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteV1TokensTokenID",
 		Method:             "DELETE",
-		PathPattern:        "/v1/tokens/{tokenID}/",
+		PathPattern:        "/v1/tokens/{tokenID}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -140,7 +140,7 @@ func (a *Client) PutV1TokensTokenID(params *PutV1TokensTokenIDParams) (*PutV1Tok
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PutV1TokensTokenID",
 		Method:             "PUT",
-		PathPattern:        "/v1/tokens/{tokenID}/",
+		PathPattern:        "/v1/tokens/{tokenID}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},

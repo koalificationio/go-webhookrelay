@@ -38,7 +38,7 @@ func (a *Client) DeleteV1TunnelsTunnelID(params *DeleteV1TunnelsTunnelIDParams) 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteV1TunnelsTunnelID",
 		Method:             "DELETE",
-		PathPattern:        "/v1/tunnels/{tunnelID}/",
+		PathPattern:        "/v1/tunnels/{tunnelID}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -106,7 +106,7 @@ func (a *Client) GetV1TunnelsTunnelID(params *GetV1TunnelsTunnelIDParams) (*GetV
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetV1TunnelsTunnelID",
 		Method:             "GET",
-		PathPattern:        "/v1/tunnels/{tunnelID}/",
+		PathPattern:        "/v1/tunnels/{tunnelID}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -176,7 +176,7 @@ func (a *Client) PutV1TunnelsTunnelID(params *PutV1TunnelsTunnelIDParams) (*PutV
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PutV1TunnelsTunnelID",
 		Method:             "PUT",
-		PathPattern:        "/v1/tunnels/{tunnelID}/",
+		PathPattern:        "/v1/tunnels/{tunnelID}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},

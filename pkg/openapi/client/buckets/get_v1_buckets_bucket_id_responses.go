@@ -56,7 +56,7 @@ type GetV1BucketsBucketIDOK struct {
 }
 
 func (o *GetV1BucketsBucketIDOK) Error() string {
-	return fmt.Sprintf("[GET /v1/buckets/{bucketID}/][%d] getV1BucketsBucketIdOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /v1/buckets/{bucketID}][%d] getV1BucketsBucketIdOK  %+v", 200, o.Payload)
 }
 
 func (o *GetV1BucketsBucketIDOK) GetPayload() *models.Bucket {
@@ -88,7 +88,7 @@ type GetV1BucketsBucketIDNotFound struct {
 }
 
 func (o *GetV1BucketsBucketIDNotFound) Error() string {
-	return fmt.Sprintf("[GET /v1/buckets/{bucketID}/][%d] getV1BucketsBucketIdNotFound ", 404)
+	return fmt.Sprintf("[GET /v1/buckets/{bucketID}][%d] getV1BucketsBucketIdNotFound ", 404)
 }
 
 func (o *GetV1BucketsBucketIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

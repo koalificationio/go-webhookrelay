@@ -38,7 +38,7 @@ func (a *Client) DeleteV1BucketsBucketID(params *DeleteV1BucketsBucketIDParams) 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteV1BucketsBucketID",
 		Method:             "DELETE",
-		PathPattern:        "/v1/buckets/{bucketID}/",
+		PathPattern:        "/v1/buckets/{bucketID}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -106,7 +106,7 @@ func (a *Client) GetV1BucketsBucketID(params *GetV1BucketsBucketIDParams) (*GetV
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetV1BucketsBucketID",
 		Method:             "GET",
-		PathPattern:        "/v1/buckets/{bucketID}/",
+		PathPattern:        "/v1/buckets/{bucketID}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},

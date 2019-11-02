@@ -62,7 +62,7 @@ type PutV1TokensTokenIDOK struct {
 }
 
 func (o *PutV1TokensTokenIDOK) Error() string {
-	return fmt.Sprintf("[PUT /v1/tokens/{tokenID}/][%d] putV1TokensTokenIdOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[PUT /v1/tokens/{tokenID}][%d] putV1TokensTokenIdOK  %+v", 200, o.Payload)
 }
 
 func (o *PutV1TokensTokenIDOK) GetPayload() *models.Token {
@@ -94,7 +94,7 @@ type PutV1TokensTokenIDBadRequest struct {
 }
 
 func (o *PutV1TokensTokenIDBadRequest) Error() string {
-	return fmt.Sprintf("[PUT /v1/tokens/{tokenID}/][%d] putV1TokensTokenIdBadRequest ", 400)
+	return fmt.Sprintf("[PUT /v1/tokens/{tokenID}][%d] putV1TokensTokenIdBadRequest ", 400)
 }
 
 func (o *PutV1TokensTokenIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -115,7 +115,7 @@ type PutV1TokensTokenIDNotFound struct {
 }
 
 func (o *PutV1TokensTokenIDNotFound) Error() string {
-	return fmt.Sprintf("[PUT /v1/tokens/{tokenID}/][%d] putV1TokensTokenIdNotFound ", 404)
+	return fmt.Sprintf("[PUT /v1/tokens/{tokenID}][%d] putV1TokensTokenIdNotFound ", 404)
 }
 
 func (o *PutV1TokensTokenIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
