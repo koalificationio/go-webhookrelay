@@ -1,5 +1,13 @@
 {
   "extends": [
     "config:base"
+  ],
+  "gomodTidy": true,
+  "postUpdateOptions": [
+    "gomodTidy"
+  ],
+  "ignoreDeps": [
+    "golang.org/x/net",
+    "golang.org/x/tools"
   ]
 }
