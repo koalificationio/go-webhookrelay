@@ -52,7 +52,7 @@ type DeleteV1TunnelsTunnelIDOK struct {
 }
 
 func (o *DeleteV1TunnelsTunnelIDOK) Error() string {
-	return fmt.Sprintf("[DELETE /v1/tunnels/{tunnelID}/][%d] deleteV1TunnelsTunnelIdOK ", 200)
+	return fmt.Sprintf("[DELETE /v1/tunnels/{tunnelID}][%d] deleteV1TunnelsTunnelIdOK ", 200)
 }
 
 func (o *DeleteV1TunnelsTunnelIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -73,7 +73,7 @@ type DeleteV1TunnelsTunnelIDNotFound struct {
 }
 
 func (o *DeleteV1TunnelsTunnelIDNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /v1/tunnels/{tunnelID}/][%d] deleteV1TunnelsTunnelIdNotFound ", 404)
+	return fmt.Sprintf("[DELETE /v1/tunnels/{tunnelID}][%d] deleteV1TunnelsTunnelIdNotFound ", 404)
 }
 
 func (o *DeleteV1TunnelsTunnelIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -52,7 +52,7 @@ type DeleteV1BucketsBucketIDOK struct {
 }
 
 func (o *DeleteV1BucketsBucketIDOK) Error() string {
-	return fmt.Sprintf("[DELETE /v1/buckets/{bucketID}/][%d] deleteV1BucketsBucketIdOK ", 200)
+	return fmt.Sprintf("[DELETE /v1/buckets/{bucketID}][%d] deleteV1BucketsBucketIdOK ", 200)
 }
 
 func (o *DeleteV1BucketsBucketIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -73,7 +73,7 @@ type DeleteV1BucketsBucketIDNotFound struct {
 }
 
 func (o *DeleteV1BucketsBucketIDNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /v1/buckets/{bucketID}/][%d] deleteV1BucketsBucketIdNotFound ", 404)
+	return fmt.Sprintf("[DELETE /v1/buckets/{bucketID}][%d] deleteV1BucketsBucketIdNotFound ", 404)
 }
 
 func (o *DeleteV1BucketsBucketIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

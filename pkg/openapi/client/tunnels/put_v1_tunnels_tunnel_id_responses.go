@@ -62,7 +62,7 @@ type PutV1TunnelsTunnelIDOK struct {
 }
 
 func (o *PutV1TunnelsTunnelIDOK) Error() string {
-	return fmt.Sprintf("[PUT /v1/tunnels/{tunnelID}/][%d] putV1TunnelsTunnelIdOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[PUT /v1/tunnels/{tunnelID}][%d] putV1TunnelsTunnelIdOK  %+v", 200, o.Payload)
 }
 
 func (o *PutV1TunnelsTunnelIDOK) GetPayload() *models.Tunnel {
@@ -94,7 +94,7 @@ type PutV1TunnelsTunnelIDBadRequest struct {
 }
 
 func (o *PutV1TunnelsTunnelIDBadRequest) Error() string {
-	return fmt.Sprintf("[PUT /v1/tunnels/{tunnelID}/][%d] putV1TunnelsTunnelIdBadRequest ", 400)
+	return fmt.Sprintf("[PUT /v1/tunnels/{tunnelID}][%d] putV1TunnelsTunnelIdBadRequest ", 400)
 }
 
 func (o *PutV1TunnelsTunnelIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -115,7 +115,7 @@ type PutV1TunnelsTunnelIDNotFound struct {
 }
 
 func (o *PutV1TunnelsTunnelIDNotFound) Error() string {
-	return fmt.Sprintf("[PUT /v1/tunnels/{tunnelID}/][%d] putV1TunnelsTunnelIdNotFound ", 404)
+	return fmt.Sprintf("[PUT /v1/tunnels/{tunnelID}][%d] putV1TunnelsTunnelIdNotFound ", 404)
 }
 
 func (o *PutV1TunnelsTunnelIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
