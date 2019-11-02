@@ -17,6 +17,8 @@ validate: deps get-swagger
 	gobin -mod=readonly -run github.com/go-swagger/go-swagger/cmd/swagger validate $(SWAGGER_SPEC)
 
 generate: validate
+	rm -rf $(OPENAPI_PACCKAGE)
+	mkdir -p $(OPENAPI_PACCKAGE)
 	gobin -mod=readonly -run github.com/go-swagger/go-swagger/cmd/swagger generate client \
 		-f $(SWAGGER_SPEC) \
 		-t $(OPENAPI_PACCKAGE) \
