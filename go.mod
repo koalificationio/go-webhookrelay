@@ -11,6 +11,5 @@ require (
 	github.com/go-openapi/swag v0.19.5
 	github.com/go-openapi/validate v0.19.5
 	github.com/go-swagger/go-swagger v0.21.0
-	golang.org/x/net v0.0.0-20191101175033-0deb6923b6d9 // indirect
-	golang.org/x/tools v0.0.0-20191101200257-8dbcdeb83d3f
+	golang.org/x/tools v0.0.0-20190907020128-2ca718005c18
 )
