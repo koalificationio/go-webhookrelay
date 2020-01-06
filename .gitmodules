@@ -1,4 +1,4 @@
 [submodule "swagger-webhookrelay"]
 	path = swagger-webhookrelay
-	url = https://github.com/webhookrelay/swagger-webhookrelay
-	branch = master
+	url = https://github.com/koalificationio/swagger-webhookrelay
+	branch = match-rule
