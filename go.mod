@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20200907205600-7a23bdc65eef // indirect
-	github.com/go-openapi/errors v0.19.6
+	github.com/go-openapi/errors v0.20.0
 	github.com/go-openapi/runtime v0.19.21
 	github.com/go-openapi/spec v0.19.9 // indirect
 	github.com/go-openapi/strfmt v0.19.5
